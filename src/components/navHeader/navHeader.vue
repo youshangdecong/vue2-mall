@@ -1,8 +1,14 @@
 <template>
   <div class="nav">
-    <div class="left"><slot name="left"></slot></div>
-    <div class="center"><slot name="center"></slot></div>
-    <div class="right"><slot name="right"></slot></div>
+    <div class="left">
+      <slot name="left"><div></div></slot>
+    </div>
+    <div class="center">
+      <slot name="center"><div></div></slot>
+    </div>
+    <div class="right">
+      <slot name="right"><div></div></slot>
+    </div>
   </div>
 </template>
 
@@ -15,6 +21,7 @@ export default {};
   display: flex;
   height: 44px;
   align-items: center;
+  justify-content: space-between;
 
   .center {
     flex: 1;

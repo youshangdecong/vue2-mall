@@ -1,9 +1,13 @@
 <template>
   <div class="p-swiper">
     <swiper :options="swiperOption" ref="mySwiper" v-if="banners.length">
-      <swiper-slide v-for="item in banners" :key="item.image">
+      <swiper-slide
+        v-for="item in banners"
+        :key="item.image"
+        :style="{ height: `${imgHeight}px` }"
+      >
         <a :href="item.link">
-          <img :src="item.image" alt="" />
+          <img :src="item.image || item" alt="" />
         </a>
       </swiper-slide>
       <!-- 根据情况引入控件 -->
@@ -26,6 +30,10 @@ export default {
     banners: {
       type: Array,
       default: () => [],
+    },
+    imgHeight: {
+      type: String,
+      default: "",
     },
   },
   data() {
@@ -62,12 +70,13 @@ export default {
 
 <style scoped lang="less">
 .swiper-slide {
+  overflow: hidden;
+
   a {
     display: block;
 
     img {
       width: 100%;
-      height: 195px;
     }
   }
 }

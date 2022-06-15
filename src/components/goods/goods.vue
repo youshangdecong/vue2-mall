@@ -1,6 +1,11 @@
 <template>
   <div class="goods">
-    <div class="item" v-for="item in goodList" :key="item.id">
+    <div
+      class="item"
+      v-for="item in goodList"
+      :key="item.id"
+      @click="goDetailPage(item.iid)"
+    >
       <img :src="item.show.img" alt="" />
       <p class="title">{{ item.title }}</p>
       <div class="count">
@@ -17,6 +22,11 @@ export default {
     goodList: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    goDetailPage(iid) {
+      this.$router.push(`/detail/${iid}`);
     },
   },
 };

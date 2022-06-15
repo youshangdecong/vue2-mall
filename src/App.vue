@@ -1,10 +1,10 @@
 <template>
   <div class="app">
     <!-- tabbar -->
-    <keep-alive>
+    <keep-alive exclude="detail">
       <router-view></router-view>
     </keep-alive>
-    <tabbar></tabbar>
+    <tabbar v-show="!isDetail"></tabbar>
   </div>
 </template>
 
@@ -13,6 +13,12 @@ import tabbar from "@/components/tabbar/tabbar";
 export default {
   components: {
     tabbar,
+  },
+  computed: {
+    isDetail() {
+      console.log(this.$route.path.includes("/detail"));
+      return this.$route.path.includes("/detail");
+    },
   },
 };
 </script>
