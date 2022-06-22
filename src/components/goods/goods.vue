@@ -6,7 +6,7 @@
       :key="item.id"
       @click="goDetailPage(item.iid)"
     >
-      <img :src="item.show.img" alt="" />
+      <img :src="item.img || item.image || item.show.img" alt="" />
       <p class="title">{{ item.title }}</p>
       <div class="count">
         <span class="price">￥{{ item.price }}</span>
@@ -26,7 +26,9 @@ export default {
   },
   methods: {
     goDetailPage(iid) {
-      this.$router.push(`/detail/${iid}`);
+      if (iid) {
+        this.$router.push(`/detail/${iid}`);
+      }
     },
   },
 };
@@ -50,7 +52,6 @@ export default {
 
     img {
       width: 100%;
-      height: 262px;
       border-radius: 5px;
     }
 

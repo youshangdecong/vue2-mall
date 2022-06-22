@@ -5,14 +5,18 @@
       <router-view></router-view>
     </keep-alive>
     <tabbar v-show="!isDetail"></tabbar>
+
+    <cover></cover>
   </div>
 </template>
 
 <script>
 import tabbar from "@/components/tabbar/tabbar";
+import cover from "@/baseUi/cover/cover";
 export default {
   components: {
     tabbar,
+    cover,
   },
   computed: {
     isDetail() {

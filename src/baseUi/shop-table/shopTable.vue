@@ -3,7 +3,9 @@
     <table :style="{ textAlign: textAlign }">
       <tr v-for="(itemTr, index) in tables" :key="index">
         <template v-if="Array.isArray(itemTr)">
-          <td v-for="itemTd in itemTr" :key="itemTd">{{ itemTd }}</td>
+          <td v-for="(itemTd, index) in itemTr" :key="itemTd + index">
+            {{ itemTd }}
+          </td>
         </template>
 
         <template v-else>
@@ -30,6 +32,10 @@ export default {
     textAlign: {
       type: String,
       default: "center",
+    },
+    typeKey: {
+      type: String,
+      default: "",
     },
   },
 };

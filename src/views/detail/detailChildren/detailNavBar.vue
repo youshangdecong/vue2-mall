@@ -10,8 +10,10 @@
         <div class="center">
           <div
             class="item"
-            v-for="item in ['商品', '参数', '评论', '推荐']"
+            v-for="(item, index) in ['商品', '参数', '评论', '推荐']"
             :key="item"
+            @click="navBtn(index)"
+            :class="{ active: currentIndex === index }"
           >
             {{ item }}
           </div>
@@ -28,6 +30,11 @@
 import navHeader from "@/components/navHeader/navHeader";
 
 export default {
+  data() {
+    return {
+      currentIndex: 0,
+    };
+  },
   components: {
     navHeader,
   },
@@ -35,11 +42,24 @@ export default {
     backBtn() {
       this.$router.back();
     },
+    navBtn(index) {
+      this.currentIndex = index;
+      console.log(this.currentIndex);
+      this.$emit("navBtnIndex", index);
+    },
+    changeIndex(index) {
+      this.currentIndex = index;
+    },
   },
 };
 </script>
 
 <style scoped lang="less">
+.active {
+  border-bottom: 1px solid red;
+  color: red;
+}
+
 .detail-navbar {
   color: #666;
 

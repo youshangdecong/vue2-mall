@@ -4,6 +4,12 @@
   --color-int: #ff8198;
 }
 
+.overflowEli {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 blockquote,
 body,
 button,

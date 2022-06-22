@@ -1,15 +1,14 @@
 <template>
   <div class="evaluation-item">
-    <div class="user">
-      <img src="" alt="" />
-      <span>橙子妈妈DDDD</span>
+    <div class="user" v-if="item.user">
+      <img :src="item.user.avatar" alt="" />
+      <span> {{ item.user.uname }}</span>
     </div>
 
-    <p>质量挺好，款式好看，喜欢，合身！</p>
+    <p>{{ item.content }}</p>
     <div class="about-info">
-      <span>2018</span>
-      <span>颜色 7222白色</span>
-      <span>尺码 m</span>
+      <span class="timer" v-format>{{ item.created }}</span>
+      <span>{{ item.style }}</span>
     </div>
   </div>
 </template>
@@ -25,4 +24,36 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.evaluation-item {
+  padding: 20px;
+
+  .user {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 42px;
+      height: 42px;
+    }
+    span {
+      font-size: 15px;
+      color: #333;
+      margin-left: 13px;
+    }
+  }
+
+  p {
+    color: #777;
+    margin: 10px 0;
+  }
+
+  .about-info {
+    color: #999;
+    font-size: 12px;
+  }
+  .timer {
+    margin-right: 10px;
+  }
+}
+</style>

@@ -12,7 +12,7 @@
 
       <div class="comments-imgs">
         <div class="item-img" v-for="item in showInfo.detailImage" :key="item">
-          <img :src="item" alt="" />
+          <img :src="item" alt="" @load="debounceImgLoad" />
         </div>
       </div>
     </div>
@@ -21,6 +21,7 @@
 
 <script>
 import decorationLine from "@/baseUi/decoration-line/decorationLine.vue";
+import { debounce } from "@/utils/debounce.js";
 export default {
   components: {
     decorationLine,
@@ -29,6 +30,16 @@ export default {
     showInfo: {
       type: Object,
       default: () => ({}),
+    },
+  },
+  computed: {
+    debounceImgLoad() {
+      return debounce(this.imgLoad);
+    },
+  },
+  methods: {
+    imgLoad() {
+      this.$emit("loadImg");
     },
   },
 };

@@ -21,6 +21,7 @@ export default {};
   display: flex;
   height: 44px;
   align-items: center;
+  text-align: center;
   justify-content: space-between;
 
   .center {

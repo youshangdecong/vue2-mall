@@ -5,7 +5,7 @@
       v-for="(item, index) in list"
       :key="item.name"
       :class="{ active: currentIndex === index }"
-      @click="navto(item)"
+      @click="navto(item, index)"
     >
       <span>{{ item.name }}</span>
     </div>
@@ -26,8 +26,9 @@ export default {
     },
   },
   methods: {
-    navto(item) {
-      const { index, type } = item;
+    navto(item, index) {
+      const { type } = item;
+
       this.currentIndex = index;
       this.$emit("switchCategory", type);
     },
@@ -43,13 +44,15 @@ export default {
   justify-content: space-around;
 
   span {
-    padding: 5px 7px;
+    padding: 3px 5px;
     font-size: 16px;
   }
 
   .active {
-    border-bottom: 2px solid #ff0000;
-    color: #ff0000;
+    span {
+      border-bottom: 2px solid #ff0000;
+      color: #ff0000;
+    }
   }
 }
 </style>

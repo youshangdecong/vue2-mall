@@ -5,3 +5,7 @@ export function getDetail(iid) {
     iid,
   });
 }
+
+export function getRecommend() {
+  return request.get("/recommend");
+}

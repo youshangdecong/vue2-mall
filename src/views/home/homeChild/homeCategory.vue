@@ -1,32 +1,24 @@
 <template>
   <div class="category">
-    <navbar
-      class="home-navbar"
-      :class="{ isFiexd: isFiexd }"
-      @switchCategory="switchCategory"
-      :list="list"
-    ></navbar>
-    <goods :goodList="currentGoodslis"></goods>
+    <category-com
+      :currentGoodslist="currentGoodslist"
+      :navList="list"
+      @homeswitchCategory="homeswitchCategory"
+    ></category-com>
   </div>
 </template>
 
 <script>
-import navbar from "@/baseUi/navbar/navbar";
-import goods from "@/components/goods/goods";
+import categoryCom from "@/components/categoryCom/categoryCom";
 export default {
   props: {
-    currentGoodslis: {
+    currentGoodslist: {
       type: Array,
       default: () => [],
     },
-    isFiexd: {
-      type: Boolean,
-      default: false,
-    },
   },
   components: {
-    navbar,
-    goods,
+    categoryCom,
   },
   data() {
     return {
@@ -38,8 +30,8 @@ export default {
     };
   },
   methods: {
-    switchCategory(type) {
-      this.$emit("homeswitchCategory", type);
+    homeswitchCategory(type) {
+      this.$emit("homeCategory", type);
     },
   },
 };

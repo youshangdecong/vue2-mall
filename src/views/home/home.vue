@@ -11,8 +11,8 @@
 
     <home-category
       ref="categoryRef"
-      @homeswitchCategory="homeswitchCategory"
-      :currentGoodslis="currentGoodslis"
+      @homeCategory="homeCategory"
+      :currentGoodslist="currentGoodslist"
     ></home-category>
   </div>
 </template>
@@ -93,7 +93,7 @@ export default {
     window.onscroll = null;
   },
   computed: {
-    currentGoodslis() {
+    currentGoodslist() {
       return this.categoryInfo[this.type] && this.categoryInfo[this.type].list;
     },
   },
@@ -115,7 +115,7 @@ export default {
       });
     },
 
-    homeswitchCategory(type) {
+    homeCategory(type) {
       this.type = type;
     },
   },
