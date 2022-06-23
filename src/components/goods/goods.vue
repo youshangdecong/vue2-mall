@@ -6,7 +6,8 @@
       :key="item.id"
       @click="goDetailPage(item.iid)"
     >
-      <img :src="item.img || item.image || item.show.img" alt="" />
+      <div>{{ item.iid + Math.random() }}</div>
+      <img v-lazy="item.img || item.image || item.show.img" alt="" />
       <p class="title">{{ item.title }}</p>
       <div class="count">
         <span class="price">￥{{ item.price }}</span>

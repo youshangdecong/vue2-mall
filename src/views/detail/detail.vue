@@ -23,6 +23,7 @@
     </div>
 
     <detail-bottom @addGoods="addGoods"></detail-bottom>
+    <go-top class="go-top" @goTop="goTop" v-show="scrollTop >= 1000"></go-top>
   </div>
 </template>
 
@@ -37,6 +38,8 @@ import detailSizeInfo from "./detailChildren/detailSizeInfo.vue";
 import detailEvaluation from "./detailChildren/detailEvaluation.vue";
 import detailRecommend from "./detailChildren/detailRecommend.vue";
 import detailBottom from "./detailChildren/detailBottom.vue";
+import goTop from "@/baseUi/goTop/goTop";
+
 export default {
   name: "detail",
   components: {
@@ -49,6 +52,7 @@ export default {
     detailEvaluation, //评论
     detailRecommend, //推荐模块
     detailBottom, //底部栏
+    goTop,
   },
   data() {
     return {
@@ -60,9 +64,10 @@ export default {
       rateInfo: {},
       recommendlist: [],
       offsetTopList: [],
-      scrollRef: null,
+      scrollRef: {},
       navIndex: -1,
       iid: "",
+      scrollTop: 0,
     };
   },
   created() {
@@ -78,6 +83,7 @@ export default {
     element.addEventListener("scroll", () => {
       const length = this.offsetTopList.length;
       const scrollTop = element.scrollTop;
+      this.scrollTop = scrollTop;
       if (!length) return;
       for (let i = 0; i < length; i++) {
         const offsetTopList = this.offsetTopList;
@@ -163,6 +169,13 @@ export default {
 
       this.$store.dispatch("cart/actionAddGoods", goodsInfo);
     },
+    goTop() {
+      this.scrollRef.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
   },
 };
 </script>
@@ -176,6 +189,10 @@ export default {
   .scroll {
     height: calc(100vh - 44px - 58px);
     overflow-y: auto;
+  }
+  .go-top {
+    right: 10px;
+    bottom: 70px;
   }
 }
 </style>

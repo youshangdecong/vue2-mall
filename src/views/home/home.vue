@@ -14,6 +14,8 @@
       @homeCategory="homeCategory"
       :currentGoodslist="currentGoodslist"
     ></home-category>
+
+    <go-top class="go-top" @goTop="goTop" v-show="scrollTop >= 1000"></go-top>
   </div>
 </template>
 
@@ -23,6 +25,7 @@ import homeBanner from "./homeChild/homeBanner.vue";
 import homeRecommend from "./homeChild/homeRecommend.vue";
 import homePopular from "./homeChild/homePopular.vue";
 import homeCategory from "./homeChild/homeCategory.vue";
+import goTop from "@/baseUi/goTop/goTop";
 
 import { getHomeInfo, getNavBarInfo } from "@/network/api/getHomeApi.js";
 export default {
@@ -32,6 +35,7 @@ export default {
     homeRecommend,
     homePopular,
     homeCategory,
+    goTop,
   },
   data() {
     return {
@@ -39,9 +43,12 @@ export default {
       recommendList: [],
       categoryInfo: {},
       type: "pop",
+      homeScrollRef: {},
+      scrollTop: 0,
     };
   },
   created() {
+    console.log("--------");
     //获取轮播图信息和推荐信息
     getHomeInfo().then((res) => {
       const data = res.data;
@@ -55,38 +62,19 @@ export default {
   },
   mounted() {
     const homeScrollRef = this.$refs.homeScrollRef;
+    this.homeScrollRef = homeScrollRef;
 
     homeScrollRef.onscroll = () => {
       const scrollHeight = homeScrollRef.scrollHeight;
       const scrollTop = homeScrollRef.scrollTop;
-
+      this.scrollTop = scrollTop;
       const homeOffsetHeight = homeScrollRef.offsetHeight;
 
-      if (scrollTop + homeOffsetHeight === scrollHeight) {
+      if (scrollTop + homeOffsetHeight >= scrollHeight) {
         const page =
           this.categoryInfo[this.type] && this.categoryInfo[this.type].page;
         this.requestNavBarInfo(this.type, page);
       }
-
-      //scrollTop是滚动条滚动时，距离顶部的距离
-      // var scrollTop =
-      //   document.documentElement.scrollTop || document.body.scrollTop;
-
-      // //windowHeight是可视区的高度
-      // var windowHeight =
-      //   document.documentElement.clientHeight || document.body.clientHeight;
-      // //scrollHeight是滚动条的总高度
-      // var scrollHeight =
-      //   document.documentElement.scrollHeight || document.body.scrollHeight;
-      // //滚动条到底部的条件
-      // if (scrollTop + windowHeight == scrollHeight) {
-      //   this.lastType = this.type;
-      //   //到了这个就可以进行业务逻辑加载后台数据了
-      //   const page =
-      //     this.categoryInfo[this.type] && this.categoryInfo[this.type].page;
-      //   this.requestNavBarInfo(this.type, page);
-      //   // window.onscroll = '' 用于解除绑定
-      // }
     };
   },
   destroyed() {
@@ -114,10 +102,27 @@ export default {
         }
       });
     },
-
+    goTop() {
+      this.homeScrollRef.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
     homeCategory(type) {
       this.type = type;
     },
+  },
+  activated() {
+    // 实现返回页面，到滚动的位置
+    this.homeScrollRef.scrollTo({
+      left: 0,
+      top: this.scrollTop,
+    });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.scrollTop = this.homeScrollRef.scrollTop;
+    next(true);
   },
 };
 </script>
@@ -130,6 +135,10 @@ export default {
 
   .home-recommend {
     border-bottom: 10px solid #eee;
+  }
+  .go-top {
+    right: 10px;
+    bottom: 70px;
   }
 }
 </style>

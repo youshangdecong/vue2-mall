@@ -1,7 +1,7 @@
 <template>
   <div class="recommend" v-if="recommendList.length">
     <div class="item" v-for="item in recommendList" :key="item.title">
-      <img :src="item.image" alt="" />
+      <img v-lazy="item.image" alt="" />
       <span>{{ item.title }}</span>
     </div>
   </div>

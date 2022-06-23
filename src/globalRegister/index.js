@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 
 export function fromatDate(time, type = "YYYY-MM-DD") {
-  console.log(type);
   return dayjs(time).format(type);
 }
 
